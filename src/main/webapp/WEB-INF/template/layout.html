@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <link th:href="@{/asset/image/favicon/6.png}" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">PenBlog</title>
+</head>
+<body>
+    <div th:fragment="header"></div>
+    <div layout:fragment="content"></div>
+</body>
+</html>
