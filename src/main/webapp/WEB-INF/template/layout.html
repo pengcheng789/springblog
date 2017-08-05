@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <link th:href="@{/asset/image/favicon/6.png}" rel="shortcut icon">
     <meta charset="UTF-8">
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">PenBlog</title>
+    <link rel="stylesheet" th:href="@{/asset/css/bootstrap.min.css}">
 </head>
 <body>
-    <div th:fragment="header"></div>
+    <div layout:fragment="header" >
+        <div class="container my-nav">
+            <ul class="nav nav-tabs nav-justified">
+                <li role="presentation" th:class="${page eq 'home'} ? active">
+                    <a href="#">首页</a>
+                </li>
+                <li role="presentation" th:class="dropdown" th:classappend="${page eq 'category'} ? active">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        分类 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Java</a></li>
+                        <li><a href="#">Android</a></li>
+                        <li><a href="#">Mysql</a></li>
+                        <li><a href="#">Linux</a></li>
+                    </ul>
+                </li>
+                <li role="presentation" th:class="${page eq 'register'} ? active">
+                    <a href="#">注册</a>
+                </li>
+                <li role="presentation" th:class="${page eq 'login'} ? active">
+                    <a href="#">登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div layout:fragment="content"></div>
+
+    <script th:src="@{/asset/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/asset/js/bootstrap.min.js}"></script>
 </body>
 </html>
