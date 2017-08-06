@@ -26,25 +26,25 @@ public interface UserRepository {
     String UPDATE_USER_ADMIN_STATUS = "UPDATE user SET is_admin = ? WHERE id = ?";
     String DELETE_USER = "DELETE FROM user WHERE id = ?";
 
-    List<User> findUsers();
+    List<User> findAll();
 
-    User findUserById(String id);
+    User findById(String id);
 
-    User findUserByMail(String mail);
+    User findByMail(String mail);
 
-    void addUser(User user);
+    void add(User user);
 
-    void updateUserHeadImage(User user);
+    void updateHeadImage(User user);
 
-    void updateUserSex(User user);
+    void updateSex(User user);
 
-    void updateUserNickname(User user);
+    void updateNickname(User user);
 
-    void updateUserPassword(User user);
+    void updatePassword(User user);
 
-    void updateUserActiveStatus(User user);
+    void updateActiveStatus(User user);
 
-    void updateUserAdminStatus(User user);
+    void updateAdminStatus(User user);
 
-    void deleteUser(User user);
+    void delete(User user);
 }

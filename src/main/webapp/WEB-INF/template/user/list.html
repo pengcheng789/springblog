@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      th:with="page='manager',head='Manager <br/> User'">
+<head>
+    <title>Manage User</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <table>
+            <tr>
+                <th>id</th>
+                <th>mail</th>
+                <th>nickname</th>
+                <th>password</th>
+                <th>sex</th>
+                <th>create_date</th>
+                <th>head_image_path</th>
+                <th>operate</th>
+            </tr>
+
+            <tr th:each=" user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.mail}"></td>
+                <td th:text="${user.nickname}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.sex}"></td>
+                <td th:text="${user.createDate}"></td>
+                <td th:text="${user.headImage}"></td>
+                <td>
+                    <a th:href="@{/user/profile/${user.id}}">view</a>
+                    <a>delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

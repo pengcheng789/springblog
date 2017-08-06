@@ -19,6 +19,6 @@ public class SystemController {
     public String home(Model model) {
         String name = "Pen";
         model.addAttribute("name", name);
-        return "home";
+        return "common/home";
     }
 }

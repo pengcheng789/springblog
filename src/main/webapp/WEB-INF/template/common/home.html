@@ -3,13 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout"
-      th:with="page='home'">
+      th:with="page='home',head='欢迎来到 <br/> PenBlog'">
 <head>
     <title>Welcome</title>
 </head>
 <body>
-    <div layout:fragment="content">
-        <h1>Hello <span th:text="${name}"></span></h1>
-    </div>
+
 </body>
 </html>

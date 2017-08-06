@@ -3,17 +3,27 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link th:href="@{/asset/image/favicon/6.png}" rel="shortcut icon">
     <meta charset="UTF-8">
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">PenBlog</title>
     <link rel="stylesheet" th:href="@{/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/asset/css/layout.css}">
 </head>
 <body>
+    <!-- header -->
     <div layout:fragment="header" >
+        <!-- head -->
+        <div class="container head" th:utext="${head}">
+        </div>
+        <!-- ./head -->
+
+        <!-- nav -->
         <div class="container my-nav">
             <ul class="nav nav-tabs nav-justified">
                 <li role="presentation" th:class="${page eq 'home'} ? active">
-                    <a href="#">首页</a>
+                    <a th:href="@{/home}">首页</a>
                 </li>
                 <li role="presentation" th:class="dropdown" th:classappend="${page eq 'category'} ? active">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -27,14 +37,16 @@
                     </ul>
                 </li>
                 <li role="presentation" th:class="${page eq 'register'} ? active">
-                    <a href="#">注册</a>
+                    <a th:href="@{/user/register}">注册</a>
                 </li>
                 <li role="presentation" th:class="${page eq 'login'} ? active">
                     <a href="#">登录</a>
                 </li>
             </ul>
         </div>
+        <!-- ./nav -->
     </div>
+    <!-- ./header -->
 
     <div layout:fragment="content"></div>
 

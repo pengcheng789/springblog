@@ -1,0 +1,20 @@
+.register{
+    margin-top: 50px;
+}
+
+div.errors {
+    background-color: #ffcccc;
+    border: 2px solid red;
+}
+
+label.error {
+    color: red;
+}
+
+input.error {
+    background-color: #ffcccc;
+}
+
+form .form-group{
+    margin-top: 50px;
+}

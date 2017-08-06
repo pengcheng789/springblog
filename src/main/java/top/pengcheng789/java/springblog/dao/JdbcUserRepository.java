@@ -29,22 +29,22 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public List<User> findUsers() {
+    public List<User> findAll() {
         return jdbcOperations.query(SELECT_USER_ALL, new UserRowMapper());
     }
 
     @Override
-    public User findUserById(String id) {
+    public User findById(String id) {
         return jdbcOperations.queryForObject(SELECT_USER_BY_ID, new UserRowMapper(), id);
     }
 
     @Override
-    public User findUserByMail(String mail) {
+    public User findByMail(String mail) {
         return jdbcOperations.queryForObject(SELECT_USER_BY_MAIL, new UserRowMapper(), mail);
     }
 
     @Override
-    public void addUser(User user) {
+    public void add(User user) {
         jdbcOperations.update(
                 INSERT_USER,
                 user.getId(),
@@ -57,7 +57,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void updateUserHeadImage(User user) {
+    public void updateHeadImage(User user) {
         jdbcOperations.update(
                 UPDATE_USER_HEAD_IMAGE,
                 user.getHeadImage(),
@@ -66,7 +66,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void updateUserSex(User user) {
+    public void updateSex(User user) {
         jdbcOperations.update(
                 UPDATE_USER_SEX,
                 user.getSex(),
@@ -75,7 +75,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void updateUserNickname(User user) {
+    public void updateNickname(User user) {
         jdbcOperations.update(
                 UPDATE_USER_NICKNAME,
                 user.getNickname(),
@@ -84,7 +84,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void updateUserPassword(User user) {
+    public void updatePassword(User user) {
         jdbcOperations.update(
                 UPDATE_USER_PASSWORD,
                 user.getPassword(),
@@ -93,7 +93,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void updateUserActiveStatus(User user) {
+    public void updateActiveStatus(User user) {
         jdbcOperations.update(
                 UPDATE_USER_ACTIVE_STATUS,
                 CastUtil.booleanToInt(user.isActive()),
@@ -102,7 +102,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void updateUserAdminStatus(User user) {
+    public void updateAdminStatus(User user) {
         jdbcOperations.update(
                 UPDATE_USER_ADMIN_STATUS,
                 CastUtil.booleanToInt(user.isAdmin()),
@@ -111,7 +111,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void delete(User user) {
     }
 
     private static final class UserRowMapper implements RowMapper<User> {
