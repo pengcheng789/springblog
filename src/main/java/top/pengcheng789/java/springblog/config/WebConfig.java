@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -31,6 +32,7 @@ import top.pengcheng789.java.springblog.controller.ControllerPackageMark;
 @ComponentScan(basePackageClasses = {
         ControllerPackageMark.class
 })
+@PropertySource(value = "classpath:ValidationMessages.properties", encoding = "utf-8")
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 
     private static final String UTF8 = "utf-8";

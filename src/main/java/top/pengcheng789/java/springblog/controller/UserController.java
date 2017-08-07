@@ -61,24 +61,29 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-        model.addAttribute("user", new RegisterUserForm());
+        model.addAttribute(new RegisterUserForm());
 
         return "user/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegister(@Valid RegisterUserForm form, Errors errors, Model model) {
+    public String processRegister(@Valid RegisterUserForm form, Errors errors) {
         if (errors.hasErrors()) {
+            System.out.println(errors.getFieldError("password"));
             return "user/register";
         }
 
+        // TODO check if mail repeat
+        /*
         if (userService.mailIsExist(form.getMail())) {
             model.addAttribute("user", form);
             model.addAttribute("errorMessage", "邮箱已被注册");
 
             return "user/register";
         }
+        */
 
-        return "redirect:/user/profile/" + userService.add(form);
+        //return "redirect:/user/profile/" + userService.add(form);
+        return "redirect:/user/list";
     }
 }

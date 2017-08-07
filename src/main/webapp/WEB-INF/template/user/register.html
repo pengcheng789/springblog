@@ -10,16 +10,10 @@
 </head>
 <body>
 <div class="container register" layout:fragment="content">
-    <form method="post" class="form-horizontal" th:object="${user}">
+    <form method="post" class="form-horizontal" th:object="${registerUserForm}">
         <div class="errors" th:if="${#fields.hasErrors('*')}">
             <ul>
                 <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
-        </div>
-
-        <div th:class="errors">
-            <ul>
-                <li th:text="${errorMessage}"></li>
             </ul>
         </div>
 
