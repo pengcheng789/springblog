@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.pengcheng789.java.springblog.model.RegisterUserForm;
+import top.pengcheng789.java.springblog.model.UpdateNicknameForm;
+import top.pengcheng789.java.springblog.model.UpdateSexForm;
 import top.pengcheng789.java.springblog.service.DateTimeService;
 import top.pengcheng789.java.springblog.service.UserService;
 
@@ -67,23 +69,59 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegister(@Valid RegisterUserForm form, Errors errors) {
+    public String processRegister(@Valid RegisterUserForm form, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            System.out.println(errors.getFieldError("password"));
             return "user/register";
         }
 
-        // TODO check if mail repeat
-        /*
         if (userService.mailIsExist(form.getMail())) {
-            model.addAttribute("user", form);
+            model.addAttribute("isMailExist", true);
+            model.addAttribute("registerUserForm", form);
             model.addAttribute("errorMessage", "邮箱已被注册");
 
             return "user/register";
         }
-        */
 
-        //return "redirect:/user/profile/" + userService.add(form);
+        return "redirect:/user/profile/" + userService.add(form);
+    }
+
+    /**
+     * 更新用户昵称
+     */
+    @RequestMapping(value = "/update/nickname/{userId}", method = RequestMethod.POST)
+    public String updateNickname(@Valid UpdateNicknameForm form, Errors errors,
+            @PathVariable String userId) {
+        if (errors.hasErrors()) {
+            return "redirect:/user/profile/" + userId;
+        }
+
+        userService.updateNickname(userId, form.getNickname());
+
+        return "redirect:/user/profile/" + userId;
+    }
+
+    /**
+     * 更新用户性别
+     */
+    @RequestMapping(value = "/update/sex/{userId}", method = RequestMethod.POST)
+    public String updateSex(@Valid UpdateSexForm form, Errors errors,
+                            @PathVariable String userId) {
+        if (errors.hasErrors()) {
+            return "redirect:/user/profile/" + userId;
+        }
+
+        userService.updateSex(userId, form.getSex());
+
+        return "redirect:/user/profile/" + userId;
+    }
+
+    /**
+     * 删除用户
+     */
+    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
+    public String delete(@PathVariable String userId) {
+        userService.delete(userId);
+
         return "redirect:/user/list";
     }
 }

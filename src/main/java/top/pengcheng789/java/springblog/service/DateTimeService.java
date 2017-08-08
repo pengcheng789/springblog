@@ -27,7 +27,9 @@ public class DateTimeService {
      */
     public String getGreetings() {
         String greetings = "Hello,";
-        int h = Calendar.getInstance().get(Calendar.HOUR);
+        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+
+        System.out.println("现在是" + h + '点');
 
         if (h >= 0 && h < 6) {
             greetings = "已经凌晨了,";

@@ -1,6 +1,7 @@
 package top.pengcheng789.java.springblog.model;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -18,7 +19,7 @@ public class RegisterUserForm {
     private String mail;
 
 //    @Size(min = 20, max = 255, message = "{nickname.size}")
-    @Size(min = 4, max = 255, message = "昵称的长度不能少于{min}个字符，不能多于{max}个字符")
+    @Size(min = 1, max = 255, message = "昵称的长度不能少于{min}个字符，不能多于{max}个字符")
     private String nickname;
 
 //    @Size(min = 20, max = 255, message = "{password.size}")
@@ -27,12 +28,10 @@ public class RegisterUserForm {
     @Pattern(regexp = "^\\w+$", message = "密码只能由0-9、大小写字母或下划线组成")
     private String password;
 
-//    @Pattern(regexp = "^[男女]$", message = "{sex.valid}")
-    // TODO bug,couldn't match Chinese character "男" or "女"
+//    @Pattern(regexp = "^[\u7537\u5973]$", message = "{sex.valid}")
+    @NotNull(message = "请选择性别")
     @Pattern(regexp = "^[\\u7537\\u5973]$", message = "性别只能是“男”或者“女”")
     private String sex;
-
-    public RegisterUserForm() {}
 
     public void setMail(String mail) {
         this.mail = mail;

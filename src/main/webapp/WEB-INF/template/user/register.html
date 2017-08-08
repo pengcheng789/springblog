@@ -9,14 +9,8 @@
     <link rel="stylesheet" th:href="@{/asset/css/user/register.css}" />
 </head>
 <body>
-<div class="container register" layout:fragment="content">
-    <form method="post" class="form-horizontal" th:object="${registerUserForm}">
-        <div class="errors" th:if="${#fields.hasErrors('*')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
-        </div>
-
+<div class="container" layout:fragment="content">
+    <form method="post" class="form-horizontal" th:object="${registerUserForm}" accept-charset="UTF-8">
         <div class="form-group">
             <label for="mail" class="col-xs-offset-1 col-xs-2 control-label"
                    th:classappend="${#fields.hasErrors('mail')} ? 'error'">
@@ -27,6 +21,14 @@
                        placeholder="输入邮箱" th:field="*{mail}"
                        th:classappend="${#fields.hasErrors('mail')} ? 'error'">
             </div>
+        </div>
+
+        <div th:class="errors" th:if="${#fields.hasErrors('mail')}">
+            <p th:each="err : ${#fields.errors('mail')}" th:text="${err}"></p>
+        </div>
+
+        <div th:class="errors" th:if="${isMailExist}">
+            <p th:text="${errorMessage}"></p>
         </div>
 
         <div class="form-group">
@@ -40,6 +42,9 @@
                        th:classappend="${#fields.hasErrors('nickname')} ? 'error'">
             </div>
         </div>
+        <div th:class="errors" th:if="${#fields.hasErrors('nickname')}">
+            <p th:each="err : ${#fields.errors('nickname')}" th:text="${err}"></p>
+        </div>
 
         <div class="form-group">
             <label for="password" class="col-xs-offset-1 col-xs-2 control-label"
@@ -51,6 +56,9 @@
                        placeholder="输入密码"  th:field="*{password}"
                        th:classappend="${#fields.hasErrors('password')} ? 'error'">
             </div>
+        </div>
+        <div th:class="errors" th:if="${#fields.hasErrors('password')}">
+            <p th:each="err : ${#fields.errors('password')}" th:text="${err}"></p>
         </div>
 
         <!--
@@ -80,6 +88,9 @@
                     <input type="radio" id="female" th:field="*{sex}" th:value="女">女
                 </label>
             </div>
+        </div>
+        <div th:class="errors" th:if="${#fields.hasErrors('sex')}">
+            <p th:each="err : ${#fields.errors('sex')}" th:text="${err}"></p>
         </div>
 
         <div class="form-group">

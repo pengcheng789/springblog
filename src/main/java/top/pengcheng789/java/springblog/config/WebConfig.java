@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,6 +22,10 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import top.pengcheng789.java.springblog.controller.ControllerPackageMark;
+
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 配置 DispatcherServlet 上下文
@@ -32,7 +39,6 @@ import top.pengcheng789.java.springblog.controller.ControllerPackageMark;
 @ComponentScan(basePackageClasses = {
         ControllerPackageMark.class
 })
-@PropertySource(value = "classpath:ValidationMessages.properties", encoding = "utf-8")
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
 
     private static final String UTF8 = "utf-8";
@@ -78,6 +84,14 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+    }
+
+    /**
+     * 配置字符集
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
     }
 
     /**

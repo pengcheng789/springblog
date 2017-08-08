@@ -112,6 +112,7 @@ public class JdbcUserRepository implements UserRepository{
 
     @Override
     public void delete(User user) {
+        jdbcOperations.update(DELETE_USER, user.getId());
     }
 
     private static final class UserRowMapper implements RowMapper<User> {

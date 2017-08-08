@@ -30,8 +30,8 @@
                 <td th:text="${user.createDate}"></td>
                 <td th:text="${user.headImage}"></td>
                 <td>
-                    <a th:href="@{/user/profile/${user.id}}">view</a>
-                    <a>delete</a>
+                    <a th:href="@{'/user/profile/' + ${user.id}}">view</a>
+                    <a th:href="@{'/user/delete/' + ${user.id}}">delete</a>
                 </td>
             </tr>
         </table>

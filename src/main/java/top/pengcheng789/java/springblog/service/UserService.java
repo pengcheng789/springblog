@@ -61,6 +61,34 @@ public class UserService {
     }
 
     /**
+     * 更新用户昵称
+     */
+    public void updateNickname(String userId, String nickName) {
+        User user = findById(userId);
+        user.setNickname(nickName);
+        userRepository.updateNickname(user);
+    }
+
+    /**
+     * 更新用户性别
+     */
+    public void updateSex(String userId, String sex) {
+        User user = findById(userId);
+        user.setSex(sex);
+        userRepository.updateSex(user);
+    }
+
+    /**
+     * 删除用户
+     */
+    public void delete(String userId) {
+        User user = findById(userId);
+
+        userRepository.delete(user);
+    }
+
+
+    /**
      * 判断 mail 是否已存在
      */
     public boolean mailIsExist(String mail) {

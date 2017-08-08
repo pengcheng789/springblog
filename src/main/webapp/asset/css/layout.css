@@ -1,6 +1,10 @@
 .head {
-    margin-top: 80px;
-    font-size: 80px;
+    margin-top: 40px;
+    font-size: 70px;
     font-weight: bold;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+.gap {
+    margin-top: 30px;
 }
