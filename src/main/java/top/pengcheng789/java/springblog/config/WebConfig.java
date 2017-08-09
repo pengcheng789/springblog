@@ -7,10 +7,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -22,11 +18,6 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import top.pengcheng789.java.springblog.controller.ControllerPackageMark;
-
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * 配置 DispatcherServlet 上下文
  *
@@ -78,23 +69,6 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     /**
-     * 配置静态资源的处理
-     */
-    @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    /**
-     * 配置字符集
-     */
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
-    }
-
-    /**
      * Thymeleaf 模板解析器
      */
     private ITemplateResolver templateResolver() {
@@ -107,6 +81,15 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         resolver.setTemplateMode(TemplateMode.HTML);
 
         return resolver;
+    }
+
+    /**
+     * 配置静态资源的处理
+     */
+    @Override
+    public void configureDefaultServletHandling(
+            DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
 
 }

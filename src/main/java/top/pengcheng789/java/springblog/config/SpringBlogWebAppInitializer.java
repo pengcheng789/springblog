@@ -1,11 +1,17 @@
 package top.pengcheng789.java.springblog.config;
 
-import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * 配置 Spring 上下文
@@ -16,18 +22,6 @@ import javax.servlet.ServletException;
  */
 public class SpringBlogWebAppInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
-
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException{
-        super.onStartup(servletContext);
-
-        // Add character encoding filters to servletContext
-        FilterRegistration.Dynamic filterRegistration = servletContext
-                .addFilter("characterEncodingFilter", new CharacterEncodingFilter());
-        filterRegistration.setInitParameter("encoding", "UTF-8");
-        filterRegistration.setInitParameter("forceEncoding", "true");
-        filterRegistration.addMappingForUrlPatterns(null, false, "/*");
-    }
 
     @Override
     protected String[] getServletMappings() {
@@ -46,6 +40,27 @@ public class SpringBlogWebAppInitializer
         return new Class<?>[] {
                 WebConfig.class
         };
+    }
+
+    /**
+     * multipart 解析器
+     */
+    @Bean
+    public MultipartResolver multipartResolver() throws IOException {
+        return new StandardServletMultipartResolver();
+    }
+
+    /**
+     * 定制 registration
+     */
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(
+                new MultipartConfigElement(
+                        "/tmp/springblog/upload",
+                        10 * 1024 * 1024,
+                        20 * 1024 * 1024, 0)
+        );
     }
 
 }

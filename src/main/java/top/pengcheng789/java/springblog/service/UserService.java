@@ -79,6 +79,15 @@ public class UserService {
     }
 
     /**
+     * 更新用户头像
+     */
+    public void updateHeadImage(String userId, String filePath) {
+        User user = findById(userId);
+        user.setHeadImage(filePath);
+        userRepository.updateHeadImage(user);
+    }
+
+    /**
      * 删除用户
      */
     public void delete(String userId) {
