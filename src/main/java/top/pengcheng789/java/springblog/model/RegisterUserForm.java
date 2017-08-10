@@ -15,7 +15,9 @@ import javax.validation.constraints.Size;
 public class RegisterUserForm {
 
 //    @Email(message = "{mail.valid}")
+    @NotNull(message = "请输入有效的邮箱地址")
     @Email(message = "请输入有效的邮箱地址")
+    @Size(min = 3, message = "请输入有效的邮箱地址")
     private String mail;
 
 //    @Size(min = 20, max = 255, message = "{nickname.size}")

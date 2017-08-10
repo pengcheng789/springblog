@@ -1,4 +1,4 @@
-package top.pengcheng789.java.springblog.config;
+package top.pengcheng789.java.springblog.config.filter;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;

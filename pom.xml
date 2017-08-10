@@ -60,6 +60,13 @@
             <version>3.0.7.RELEASE</version>
         </dependency>
 
+        <!-- Thymeleaf Extras Security -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>3.0.2.RELEASE</version>
+        </dependency>
+
         <!-- Thymeleaf Layout Dialect -->
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
@@ -94,6 +101,18 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
+        </dependency>
+
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.2.3.RELEASE</version>
         </dependency>
 
         <!-- Junit -->

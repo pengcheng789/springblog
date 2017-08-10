@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout"
-      th:with="page='manager',head=${greetings}+'<br/>'+${user.nickname}">
+      th:with="page='profile',head=${greetings}+'<br/>'+${user.nickname}">
 <head>
     <title th:text="${user.nickname} + '的个人空间'"></title>
     <link rel="stylesheet" th:href="@{/asset/css/user/profile.css}" />

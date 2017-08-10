@@ -30,6 +30,10 @@ Spring 框架版。
   
 ## 更新
 
+### 20170810
+  * 添加 Spring Security 安全机制
+  * 采用 SpringSecurityDialect 方言保护视图
+
 ### 20170809
   * 完成用户头像修改功能
 
