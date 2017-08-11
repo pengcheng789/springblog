@@ -52,7 +52,12 @@
                 </li>
                 <li sec:authorize="isAuthenticated()"
                     role="presentation">
-                    <a th:href="@{/user/logout}">注销</a>
+                    <a th:onclick="'logout(\''
+                        + ${_csrf.parameterName} + '\',\''
+                        + ${_csrf.token}
+                        + '\')'">
+                            注销
+                    </a>
                 </li>
             </ul>
         </div>
@@ -65,5 +70,7 @@
 
     <script th:src="@{/asset/js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{/asset/js/bootstrap.min.js}"></script>
+    <script sec:authorize="isAuthenticated()" th:src="@{/asset/js/logout/logout.js}">
+    </script>
 </body>
 </html>

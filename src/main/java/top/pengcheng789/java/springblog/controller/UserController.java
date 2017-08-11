@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-import top.pengcheng789.java.springblog.model.CurrentUser;
 import top.pengcheng789.java.springblog.model.RegisterUserForm;
 import top.pengcheng789.java.springblog.model.UpdateNicknameForm;
 import top.pengcheng789.java.springblog.model.UpdateSexForm;
@@ -76,11 +76,9 @@ public class UserController {
      * 用户详情
      */
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String profile(@AuthenticationPrincipal CurrentUser user,
+    public String profile(@AuthenticationPrincipal User user,
                           Model model) {
-        //TODO need to process @AuthenticationPrincipal
         String userId = user.getUsername();
-        System.out.println(userId);
         model.addAttribute(userService.findById(userId));
         model.addAttribute("greetings", dateTimeService.getGreetings());
 
