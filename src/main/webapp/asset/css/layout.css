@@ -8,3 +8,11 @@
 .gap {
     margin-top: 10px;
 }
+
+.dropdown-menu li a {
+    display: inline;
+}
+
+.dropdown-menu li {
+    margin-bottom: 10px;
+}

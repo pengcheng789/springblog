@@ -26,15 +26,27 @@
                 <li role="presentation" th:class="${page eq 'home'} ? active">
                     <a th:href="@{/home}">首页</a>
                 </li>
-                <li role="presentation" th:class="dropdown" th:classappend="${page eq 'category'} ? active">
+                <li role="presentation" th:class="dropdown" th:classappend="${page eq 'passage'} ? active">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         分类 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Java</a></li>
-                        <li><a href="#">Android</a></li>
-                        <li><a href="#">Mysql</a></li>
-                        <li><a href="#">Linux</a></li>
+                        <li th:each="category : ${categoryList}">
+                            <a th:href="@{'/passage/category/' + ${category.id}}"
+                               th:text="${category.name}"></a>
+                            <button type="button" class="btn btn-danger btn-xs"
+                                    sec:authorize-url="/passage/category/delete/**">
+                                删除
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-default btn-xs"
+                                    style="margin-left: 15px;"
+                                    data-toggle="modal" data-target="#addPassageCategoryModal"
+                                    sec:authorize-url="/passage/category/add">
+                                添加分类
+                            </button>
+                        </li>
                     </ul>
                 </li>
                 <li sec:authorize="isAnonymous()"
@@ -67,6 +79,41 @@
 
     <div th:class="gap">&nbsp;</div>
     <div layout:fragment="content"></div>
+
+    <!-- Bootstrap 模态框 -->
+    <!-- 添加分类 -->
+    <div class="modal fade" tabindex="-1" role="dialog"
+         id="addPassageCategoryModal" aria-labelledby="addPassageCategoryModalLabel"
+         sec:authorize-url="/passage/category/add">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="addPassageCategoryModalLabel">
+                        添加分类
+                    </h4>
+                </div>
+
+                <form method="post" th:action="@{'/passage/category/add'}">
+                    <div class="modal-body">
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取消
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <script th:src="@{/asset/js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{/asset/js/bootstrap.min.js}"></script>

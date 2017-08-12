@@ -9,26 +9,40 @@ Spring 框架版。
 
 ## URL
 
-  GET:/,/home -- 网站主页
+  (ALL)GET:/,/home -- 网站主页
   
   
-  GET:/user/list -- 用户列表
+  (ADMIN)GET:/user/list -- 用户列表
   
-  GET:/user/delete/{userId} -- 删除用户，{userId}为用户Id
+  (ADMIN)GET:/user/delete/{userId} -- 删除用户，{userId}为用户Id
   
-  GET:/user/register -- 用户注册视图
+  (ALL)GET:/user/register -- 用户注册视图
   
-  POST:/user/register -- 用户注册提交
+  (ALL)POST:/user/register -- 用户注册提交
   
-  GET:/user/profile/{userId} --  用户个人详情，{userId}为用户Id
+  (ALL)GET:/user/login -- 用户登录视图
   
-  POST:/user/update/nickname/{userId} -- 用户昵称修改提交，{userId}为用户Id
+  (ALL)POST:/user/login -- 用户登录提交
   
-  POST:/user/update/sex/{userId} -- 用户性别修改提交，{userId}为用户Id
+  (AUTHENTICATED)POST:/user/logout -- 用户注销提交
+  
+  (AUTHENTICATED)GET:/user/profile --  用户个人详情
+  
+  (AUTHENTICATED)POST:/user/update/nickname -- 用户昵称修改提交
+  
+  (AUTHENTICATED)POST:/user/update/sex -- 用户性别修改提交
+  
+  (AUTHENTICATED)POST:/user/update/head_image -- 用户头像修改提交
   
   
+  (ALL)GET:/passage/category/{category_id}  -- 属于 category_id 的文章列表，{category_id}文章类别的id
+  
+  (ADMIN)POST:/passage/category/add -- 添加文章类别提交
   
 ## 更新
+
+### 20170812
+  * 实现文章分类功能
 
 ### 20170810
   * 添加 Spring Security 安全机制

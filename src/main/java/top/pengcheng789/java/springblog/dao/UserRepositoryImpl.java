@@ -19,12 +19,12 @@ import java.util.List;
  * @author pen
  */
 @Repository
-public class JdbcUserRepository implements UserRepository{
+public class UserRepositoryImpl implements UserRepository{
 
     private JdbcOperations jdbcOperations;
 
     @Autowired
-    public JdbcUserRepository(JdbcOperations jdbcOperations) {
+    public UserRepositoryImpl(JdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;
     }
 

@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import top.pengcheng789.java.springblog.model.PassageCategory;
 import top.pengcheng789.java.springblog.model.RegisterUserForm;
 import top.pengcheng789.java.springblog.model.UpdateNicknameForm;
 import top.pengcheng789.java.springblog.model.UpdateSexForm;
 import top.pengcheng789.java.springblog.service.DateTimeService;
+import top.pengcheng789.java.springblog.service.PassageCategoryService;
 import top.pengcheng789.java.springblog.service.UserService;
 
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -41,6 +44,7 @@ public class UserController {
     private UserService userService;
     private DateTimeService dateTimeService;
     private ServletContext servletContext;
+    private PassageCategoryService passageCategoryService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -57,9 +61,17 @@ public class UserController {
         this.servletContext = servletContext;
     }
 
+    @Autowired
+    private void setPassageCategoryService(PassageCategoryService service) {
+        this.passageCategoryService = service;
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("users", userService.findAll());
+
+        List<PassageCategory> categoryList = passageCategoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
 
         return "user/list";
     }
@@ -68,7 +80,9 @@ public class UserController {
      * 用户登录
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(Model model) {
+        List<PassageCategory> categoryList = passageCategoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
         return "user/login";
     }
 
@@ -79,6 +93,8 @@ public class UserController {
     public String profile(@AuthenticationPrincipal User user,
                           Model model) {
         String userId = user.getUsername();
+        List<PassageCategory> categoryList = passageCategoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute(userService.findById(userId));
         model.addAttribute("greetings", dateTimeService.getGreetings());
 
@@ -92,11 +108,18 @@ public class UserController {
     public String register(Model model) {
         model.addAttribute(new RegisterUserForm());
 
+        List<PassageCategory> categoryList = passageCategoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
+
         return "user/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processRegister(@Valid RegisterUserForm form, Errors errors, Model model) {
+
+        List<PassageCategory> categoryList = passageCategoryService.findAll();
+        model.addAttribute("categoryList", categoryList);
+
         if (errors.hasErrors()) {
             return "user/register";
         }
@@ -109,51 +132,57 @@ public class UserController {
             return "user/register";
         }
 
-        return "redirect:/user/profile/" + userService.add(form);
+        userService.add(form);
+
+        return "redirect:/user/profile";
     }
 
     /**
      * 更新用户昵称
      */
-    @RequestMapping(value = "/update/nickname/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/nickname", method = RequestMethod.POST)
     public String updateNickname(@Valid UpdateNicknameForm form, Errors errors,
-            @PathVariable String userId) {
+            @AuthenticationPrincipal User user) {
+        String userId = user.getUsername();
         if (errors.hasErrors()) {
-            return "redirect:/user/profile/" + userId;
+            return "redirect:/user/profile";
         }
 
         userService.updateNickname(userId, form.getNickname());
 
-        return "redirect:/user/profile/" + userId;
+        return "redirect:/user/profile";
     }
 
     /**
      * 更新用户性别
      */
-    @RequestMapping(value = "/update/sex/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/sex", method = RequestMethod.POST)
     public String updateSex(@Valid UpdateSexForm form, Errors errors,
-                            @PathVariable String userId) {
+                            @AuthenticationPrincipal User user) {
+        String userId = user.getUsername();
         if (errors.hasErrors()) {
-            return "redirect:/user/profile/" + userId;
+            return "redirect:/user/profile";
         }
 
         userService.updateSex(userId, form.getSex());
 
-        return "redirect:/user/profile/" + userId;
+        return "redirect:/user/profile";
     }
 
     /**
      * 更新用户头像
      */
-    @RequestMapping(value = "/update/head_image/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/head_image", method = RequestMethod.POST)
     public String updateHeadImage(
             @RequestPart("headImage")MultipartFile headImage,
-            @PathVariable String userId) {
+            @AuthenticationPrincipal User user) {
+        String userId = user.getUsername();
+
         if (headImage.isEmpty()
                 || !(headImage.getContentType().equalsIgnoreCase("image/jpeg")
                 || headImage.getContentType().equalsIgnoreCase("image/png")
                 || headImage.getContentType().equalsIgnoreCase("image/gif"))) {
-            return "redirect:/user/profile/" + userId;
+            return "redirect:/user/profile";
         }
 
         String path = servletContext.getRealPath("/asset/head_image/") +
@@ -169,7 +198,7 @@ public class UserController {
             throw new RuntimeException(e);
         }
 
-        return "redirect:/user/profile/" + userId;
+        return "redirect:/user/profile";
     }
 
     /**

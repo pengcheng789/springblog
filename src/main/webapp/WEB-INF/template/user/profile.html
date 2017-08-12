@@ -29,7 +29,7 @@
                     <!-- 昵称栏 -->
                     <div class="row information">
                         <div class="col-xs-4">
-                            昵称
+                            昵称:
                         </div>
                         <div class="col-xs-6" th:text="${user.nickname}">
                         </div>
@@ -44,7 +44,7 @@
                     <!--邮箱栏-->
                     <div class="row information">
                         <div class="col-xs-4">
-                            注册邮箱
+                            注册邮箱:
                         </div>
                         <div class="col-xs-6" th:text="${user.mail}">
                         </div>
@@ -53,7 +53,7 @@
                     <!--性别栏-->
                     <div class="row information">
                         <div class="col-xs-4">
-                            性别
+                            性别:
                         </div>
                         <div class="col-xs-6" th:text="${user.sex}">
                         </div>
@@ -66,7 +66,7 @@
                     <!--注册日期栏-->
                     <div class="row information">
                         <div class="col-xs-4">
-                            注册日期
+                            注册日期:
                         </div>
                         <div class="col-xs-6" th:text="${user.createDate}">
                         </div>
@@ -91,7 +91,7 @@
                         </h4>
                     </div>
 
-                    <form method="post" th:action="@{'/user/update/nickname/'+${user.id}}">
+                    <form method="post" th:action="@{'/user/update/nickname'}">
                         <div class="modal-body">
                             <input type="text" name="nickname" class="form-control"
                                    th:value="${user.nickname}">
@@ -125,7 +125,7 @@
                         </h4>
                     </div>
 
-                    <form method="post" th:action="@{'/user/update/sex/'+${user.id}}">
+                    <form method="post" th:action="@{'/user/update/sex/'}">
                         <div class="modal-body">
                             <label class="radio-inline">
                                 <input type="radio" name="sex" id="male" value="男" checked>男
@@ -165,7 +165,9 @@
                     </div>
 
                     <form method="post" enctype="multipart/form-data"
-                          th:action="@{'/user/update/head_image/' + ${user.id}}">
+                          th:action="@{'/user/update/head_image?'
+                            + ${_csrf.parameterName} + '='
+                            + ${_csrf.token}}">
                         <div class="modal-body">
                             选择文件 <input type="file" name="headImage"
                                         accept="image/jpeg,image/gif,image/png">

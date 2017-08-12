@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
 
@@ -45,11 +47,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/user/login")
+        http.addFilterAfter(new CharacterEncodingFilter("UTF-8", true),
+                BasicAuthenticationFilter.class)
+                .formLogin().loginPage("/user/login")
                 .and().logout().logoutSuccessUrl("/").logoutUrl("/user/logout")
                 .and().authorizeRequests()
-                .antMatchers("/user/profile", "user/update/**").authenticated()
-                .antMatchers("/user/list", "/user/delete/**").hasRole("ADMIN")
+                .antMatchers("/user/profile", "/user/update/**").authenticated()
+                .antMatchers("/user/list", "/user/delete/**",
+                        "/passage/category/add",
+                        "/passage/category/delete/**",
+                        "/passage/add").hasRole("ADMIN")
                 .anyRequest().permitAll();
     }
 }
