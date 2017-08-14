@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout"
+      th:with="page='passage',head=${passage.title} + ' <br/> PenBlog'">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/asset/css/passage/detail.css}">
+    <title th:text="${passage.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" th:class="container">
+        <h1 th:class="content" th:text="${passage.title}"></h1>
+
+        <div th:utext="${passage.content}"></div>
+    </div>
+</body>
+</html>

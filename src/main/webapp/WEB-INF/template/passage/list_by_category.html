@@ -7,20 +7,87 @@
       th:with="page='passage',head=${currentCategory.name} + ' 的文章 <br/> PenBlog'">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/asset/css/gap.css}">
+    <link rel="stylesheet" th:href="@{/asset/css/passage/list_by_category.css}">
     <title th:text="${currentCategory.name}"></title>
 </head>
 <body>
     <div layout:fragment="content" class="container">
         <div sec:authorize-url="/passage/add">
-            <button type="button" class="btn btn-default">
+            <button type="button" class="btn btn-default"
+                    data-toggle="modal" data-target="#addPassageModal">
                 添加文章
             </button>
         </div>
 
-        <a th:each="passage : ${passageList}"
-           th:href="@{'/passage/profile/' + ${passage.id}}">
-            <h5 th:text="${passage.title}"></h5>
-        </a>
+        <div th:class="passage_list">
+            <div th:each="passage : ${passageList}" th:class="'passage gap'">
+                <a th:href="@{'/passage/detail/' + ${passage.id}}">
+                    <h2 th:text="${passage.title}"></h2>
+                    <p th:text="${passage.originContent}"></p>
+                    <span th:class="badge" th:text="${passage.createDate}"></span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bootstrap 模态框 -->
+        <!-- 添加文章 -->
+        <div class="modal fade" tabindex="-1" role="dialog"
+             id="addPassageModal" aria-labelledby="addPassageModalLabel"
+             sec:authorize-url="/passage/add">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="addPassageModalLabel">
+                            添加文章
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="passage_title gap">
+                            文章标题
+                            <input id="passage_title_input"
+                                   type="text" class="form-control">
+                        </div>
+                        <div id="editor">
+                            <p>开始编写文章！</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            取消
+                        </button>
+                        <button id="submit" type="button" class="btn btn-primary">
+                            确认
+                        </button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <script sec:authorize-url="/passage/add" th:src="@{/asset/js/wangEditor.min.js}"></script>
+        <script sec:authorize-url="/passage/add" th:src="@{/asset/js/passage/createPassage.js}"></script>
+        <script sec:authorize-url="/passage/add" th:inline="javascript">
+            var E = window.wangEditor
+            var editor = new E('#editor')
+            editor.customConfig.uploadImgShowBase64 = true
+            editor.create()
+
+            document.getElementById('submit').addEventListener('click', function () {
+                // 读取 html
+                createPassage({[[${_csrf.parameterName}]]: [[${_csrf.token}]],
+                    categoryId: [[${currentCategory.id}]],
+                    title: document.getElementById('passage_title_input').value,
+                    content: editor.txt.html(),
+                    originContent: editor.txt.text()})
+            }, false)
+        </script>
+
     </div>
 </body>
 </html>

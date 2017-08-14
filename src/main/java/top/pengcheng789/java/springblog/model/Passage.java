@@ -1,5 +1,7 @@
 package top.pengcheng789.java.springblog.model;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -12,12 +14,23 @@ import java.util.Date;
 public class Passage {
 
     private String id;
+
+    @Size(min = 1)
     private String title;
-    private String author_id;
-    private int category_id;
+
+    private String authorId;
+
+    private int categoryId;
+
     private Date createDate;
+
     private Date updateDate;
+
+    @Size(min = 1)
     private String content;
+
+    @Size(min = 1)
+    private String originContent;
 
     public String getId() {
         return id;
@@ -35,20 +48,20 @@ public class Passage {
         this.title = title;
     }
 
-    public String getAuthor_id() {
-        return author_id;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(String author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Date getCreateDate() {
@@ -73,5 +86,13 @@ public class Passage {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getOriginContent() {
+        return originContent;
+    }
+
+    public void setOriginContent(String originContent) {
+        this.originContent = originContent;
     }
 }

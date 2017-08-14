@@ -14,9 +14,24 @@ import java.util.List;
 public interface PassageRepository {
 
     String SELECT_PASSAGE_ALL = "SELECT * FROM passage";
-    String SELECT_PASSAGE_BY_CATRGORY_ID = "SELECT * FROM passage WHERE category_id = ?";
+    String SELECT_PASSAGE_BY_CATEGORY_ID = "SELECT * FROM passage WHERE category_id = ?";
+    String SELECT_PASSAGE_BY_ID = "SELECT * FROM passage WHERE id = ?";
+    String DELETE_PASSAGE = "DELETE FROM passage WHERE id = ?";
+    String INSERT_PASSAGE = "INSERT INTO passage (id, title, author_id, category_id," +
+            "create_date, update_date, content, origin_content) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String UPDATE_PASSAGE = "UPDATE passage SET title = ?, update_date = ?, " +
+            "content = ?, origin_content = ? WHERE id = ?";
 
     List<Passage> findAll();
 
     List<Passage> findByCategoryId(int categoryId);
+
+    Passage findById(String passageId);
+
+    void delete(String passageId);
+
+    void add(Passage passage);
+
+    void update(Passage passage);
 }

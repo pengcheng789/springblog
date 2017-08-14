@@ -35,7 +35,7 @@ Spring 框架版。
   (AUTHENTICATED)POST:/user/update/head_image -- 用户头像修改提交
   
   
-  (ALL)GET:/passage/category/{category_id}  -- 属于 category_id 的文章列表，{category_id}文章类别的id
+  (ALL)GET:/passage/category/{category_id}  -- 属于 categoryId 的文章列表，{categoryId}文章类别的id
   
   (ADMIN)POST:/passage/category/add -- 添加文章类别提交
   

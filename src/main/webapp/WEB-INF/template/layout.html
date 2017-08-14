@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link th:href="@{/asset/image/favicon/6.png}" rel="shortcut icon">
+    <link rel="shortcut icon" th:href="@{/asset/image/favicon/7.png}">
     <meta charset="UTF-8">
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">PenBlog</title>
     <link rel="stylesheet" th:href="@{/asset/css/bootstrap.min.css}">
@@ -16,7 +16,8 @@
     <!-- header -->
     <div layout:fragment="header" >
         <!-- head -->
-        <div class="container head" th:utext="${head}">
+        <div class="container head">
+            <div class="col-xs-12" th:utext="${head}"></div>
         </div>
         <!-- ./head -->
 
