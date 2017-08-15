@@ -52,12 +52,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/user/login")
                 .and().logout().logoutSuccessUrl("/").logoutUrl("/user/logout")
                 .and().authorizeRequests()
-                .antMatchers("/user/profile", "/user/update/**").authenticated()
+                .antMatchers("/user/profile", "/user/update/**",
+                        "/user/logout").authenticated()
                 .antMatchers("/user/list", "/user/delete/**",
                         "/passage/category/add",
                         "/passage/category/delete/**",
                         "/passage/add", "/passage/update",
-                        "/passage/delete/**").hasRole("ADMIN")
+                        "/passage/delete/**",
+                        "/user/register").hasRole("ADMIN")
+                .antMatchers("/user/login").anonymous()
                 .anyRequest().permitAll();
     }
 }

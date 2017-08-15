@@ -21,11 +21,19 @@
         </div>
 
         <div th:class="passage_list">
-            <div th:each="passage : ${passageList}" th:class="'passage gap'">
+            <div th:each="passage : ${passageList}" th:class="'passage'">
                 <a th:href="@{'/passage/detail/' + ${passage.id}}">
                     <h2 th:text="${passage.title}"></h2>
                     <p th:text="${passage.originContent}"></p>
-                    <span th:class="badge" th:text="${passage.createDate}"></span>
+                </a>
+                发表时间&nbsp;<span th:class="badge" th:text="${passage.createDate}"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                更新时间&nbsp;<span th:class="badge" th:text="${passage.updateDate}"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a type="button" th:class="'btn btn-danger'"
+                   th:href="'/passage/delete/' + ${passage.id}"
+                   sec:authorize-url="/passage/delete/**">
+                    删除
                 </a>
             </div>
         </div>

@@ -32,6 +32,8 @@ public class Passage {
     @Size(min = 1)
     private String originContent;
 
+    private PassageCategory passageCategory;
+
     public String getId() {
         return id;
     }
@@ -94,5 +96,13 @@ public class Passage {
 
     public void setOriginContent(String originContent) {
         this.originContent = originContent;
+    }
+
+    public PassageCategory getPassageCategory() {
+        return passageCategory;
+    }
+
+    public void setPassageCategory(PassageCategory passageCategory) {
+        this.passageCategory = passageCategory;
     }
 }

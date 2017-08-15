@@ -5,9 +5,27 @@
       layout:decorator="layout"
       th:with="page='home',head='欢迎来到 <br/> PenBlog'">
 <head>
+    <link rel="stylesheet" th:href="@{/asset/css/home/home.css}">
     <title>Welcome</title>
 </head>
 <body>
-
+    <div layout:fragment="content" th:class="container">
+        <div th:class="'passage_list col-xs-8'">
+            <div th:class="'passage'" th:each="passage : ${passageList}">
+                <a th:href="@{'/passage/detail/' + ${passage.id}}">
+                    <h2 th:text="${passage.title}"></h2>
+                    <p th:text="${passage.originContent}"></p>
+                </a>
+                发表时间&nbsp;<span th:class="badge" th:text="${passage.createDate}"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                更新时间&nbsp;<span th:class="badge" th:text="${passage.updateDate}"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a th:href="@{'/passage/category/' + ${passage.passageCategory.id}}">
+                    所属分类&nbsp;
+                    <span th:class="badge" th:text="${passage.passageCategory.name}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

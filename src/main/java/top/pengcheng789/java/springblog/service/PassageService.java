@@ -6,7 +6,6 @@ import top.pengcheng789.java.springblog.dao.PassageRepository;
 import top.pengcheng789.java.springblog.model.Passage;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Passage 服务类
@@ -19,22 +18,47 @@ import java.util.UUID;
 public class PassageService {
 
     private PassageRepository passageRepository;
+    private PassageCategoryService passageCategoryService;
 
     @Autowired
     private void setPassageRepository(PassageRepository passageRepository) {
         this.passageRepository = passageRepository;
     }
 
+    @Autowired
+    public void setPassageCategoryService(PassageCategoryService passageCategoryService) {
+        this.passageCategoryService = passageCategoryService;
+    }
+
     public List<Passage> findAll() {
-        return passageRepository.findAll();
+        List<Passage> passageList = passageRepository.findAll();
+
+        for (Passage passage : passageList) {
+            passage.setPassageCategory(
+                    passageCategoryService.findById(passage.getCategoryId()));
+        }
+
+        return passageList;
     }
 
     public List<Passage> findByCategoryId(int categoryId) {
-        return passageRepository.findByCategoryId(categoryId);
+        List<Passage> passageList = passageRepository.findByCategoryId(categoryId);
+
+        for (Passage passage : passageList) {
+            passage.setPassageCategory(
+                    passageCategoryService.findById(passage.getCategoryId()));
+        }
+
+        return passageList;
     }
 
     public Passage findById(String passageId) {
-        return passageRepository.findById(passageId);
+
+        Passage passage = passageRepository.findById(passageId);
+        passage.setPassageCategory(
+                passageCategoryService.findById(passage.getCategoryId()));
+
+        return passage;
     }
 
     public void delete(String id) {

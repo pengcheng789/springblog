@@ -117,7 +117,7 @@ public class PassageController {
         model.addAttribute("categoryList", categoryList);
 
         if (errors.hasErrors()) {
-            return "/passage/detail/" + passage.getId();
+            return "passage/detail";
         }
 
         passage.setUpdateDate(new Date());

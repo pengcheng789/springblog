@@ -35,10 +35,11 @@
                         <li th:each="category : ${categoryList}">
                             <a th:href="@{'/passage/category/' + ${category.id}}"
                                th:text="${category.name}"></a>
-                            <button type="button" class="btn btn-danger btn-xs"
-                                    sec:authorize-url="/passage/category/delete/**">
+                            <a type="button" class="btn btn-danger"
+                               th:href="@{'/passage/category/delete/' + ${category.id}}"
+                               sec:authorize-url="/passage/category/delete/**">
                                 删除
-                            </button>
+                            </a>
                         </li>
                         <li>
                             <button type="button" class="btn btn-default btn-xs"
@@ -50,9 +51,9 @@
                         </li>
                     </ul>
                 </li>
-                <li sec:authorize="isAnonymous()"
-                    role="presentation" th:class="${page eq 'register'} ? active">
-                    <a th:href="@{/user/register}">注册</a>
+                <li sec:authorize="isAnonymous()" th:class="disabled"
+                    role="presentation" th:classappend="${page eq 'register'} ? active">
+                    <a th:href="'#'">注册</a>
                 </li>
                 <li sec:authorize="isAnonymous()"
                     role="presentation" th:class="${page eq 'login'} ? active">
