@@ -72,10 +72,10 @@
 
             document.getElementById('submit').addEventListener('click', function () {
                 // 读取 html
-                createForm('/passage/update',
+                createForm('/springblog/passage/update',
                     {[[${_csrf.parameterName}]]: [[${_csrf.token}]],
                     id: [[${passage.id}]],
-                    categoryId: [[${passage.id}]],
+                    categoryId: [[${passage.categoryId}]],
                     title: document.getElementById('passage_title_input').value,
                     content: editor.txt.html(),
                     originContent: editor.txt.text()})

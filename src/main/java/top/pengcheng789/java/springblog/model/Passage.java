@@ -1,6 +1,5 @@
 package top.pengcheng789.java.springblog.model;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -15,7 +14,7 @@ public class Passage {
 
     private String id;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "1")
     private String title;
 
     private String authorId;
@@ -26,10 +25,10 @@ public class Passage {
 
     private Date updateDate;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "2")
     private String content;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "3")
     private String originContent;
 
     private PassageCategory passageCategory;

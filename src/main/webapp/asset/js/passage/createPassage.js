@@ -6,7 +6,7 @@ function createPassage(params) {
     var form = document.createElement('form');
 
     form.setAttribute('method', 'post');
-    form.setAttribute('action', '/passage/add');
+    form.setAttribute('action', '/springblog/passage/add');
 
     for (var key in params) {
         if (params.hasOwnProperty(key)) {
